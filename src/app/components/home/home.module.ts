@@ -3,11 +3,18 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
+import { TaskModule } from './../task/task.module';
+import { StoreModule } from "@ngrx/store";
+import { reducers, metaReducers } from "~/app/store/reducers";
+
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        HomeRoutingModule
+        HomeRoutingModule,
+        // StoreModule.forRoot(reducers, { metaReducers }),
+        StoreModule.forRoot(reducers),
+        TaskModule
     ],
     declarations: [
         HomeComponent
@@ -17,3 +24,5 @@ import { HomeComponent } from "./home.component";
     ]
 })
 export class HomeModule { }
+
+

@@ -1,0 +1,9 @@
+.item-task {
+    font-size: 20px;
+    padding: 10px;
+    color: darkblue;
+}
+
+.selected-item {
+    background-color: aliceblue;
+}

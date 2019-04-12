@@ -1,0 +1,6 @@
+<!--<li (click)="select.emit(task.id)">{{task.description}}</li>-->
+
+<Label [text]="task.description" (tap)="onTap()" class="item-task"
+       [ngClass]="{'selected-item': task.id === selectedId }"
+       verticalAlignment="center" style="width: 60%"></Label>
+

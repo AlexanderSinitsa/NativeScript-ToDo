@@ -1,0 +1,9 @@
+<ScrollView>
+    <StackLayout>
+        <ns-task-item (tap)="onSelect(task.id)" *ngFor="let task of tasks" [task]="task" [selectedId]="selectedId$ | async"
+        ></ns-task-item>
+    </StackLayout>
+</ScrollView>
+
+
+
