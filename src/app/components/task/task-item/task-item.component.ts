@@ -21,7 +21,7 @@ export class TaskItemComponent implements OnInit {
 
     onTap() {
         console.log('Tap <- item');
-        this.select.emit(event)
+        this.select.emit()
     }
 
 }

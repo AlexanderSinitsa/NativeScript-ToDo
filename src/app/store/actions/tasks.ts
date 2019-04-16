@@ -4,7 +4,7 @@ import { Task } from '~/app/models/task';
 
 
 export const SELECT = '[Tasks] Select';
-export const ADD_ONE = '[Tasks] Add Task';
+export const ADD_TASK = '[Tasks] Add Task';
 
 
 export class Select implements Action {
@@ -13,10 +13,12 @@ export class Select implements Action {
 }
 
 
-export class AddOne implements Action {
-  readonly type = ADD_ONE;
-  constructor(public payload: Task) { }
+export class AddTask implements Action {
+  readonly type = ADD_TASK;
+  constructor(public payload: string) {
+      console.log('Action add new');
+  }
 }
 
 
-export type Action = AddOne | Select;
+export type Action = AddTask | Select;

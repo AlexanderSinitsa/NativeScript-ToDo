@@ -1,9 +1,18 @@
-<ScrollView>
-    <StackLayout>
-        <ns-task-item (tap)="onSelect(task.id)" *ngFor="let task of tasks" [task]="task" [selectedId]="selectedId$ | async"
-        ></ns-task-item>
-    </StackLayout>
-</ScrollView>
 
+<ListView class="list-group" [items]="tasks$ | async" style="height:100%">
+    <ng-template let-task="item">
+
+        <ns-task-item (tap)="onSelect(task.id)" [task]="task" [selectedId]="selectedId$ | async"></ns-task-item>
+
+    </ng-template>
+</ListView>
+
+
+<!--<ScrollView>-->
+<!--    <StackLayout>-->
+<!--        <ns-task-item (tap)="onSelect(task.id)" *ngFor="let task of tasks" [task]="task" [selectedId]="selectedId$ | async"-->
+<!--        ></ns-task-item>-->
+<!--    </StackLayout>-->
+<!--</ScrollView>-->
 
 

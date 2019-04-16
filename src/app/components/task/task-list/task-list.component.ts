@@ -1,3 +1,4 @@
+import { ItemEventData } from "tns-core-modules/ui/list-view"
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -6,6 +7,8 @@ import * as taskAction from '~/app/store/actions/tasks';
 import * as fromRoot from '~/app/store/reducers';
 import { Observable } from 'rxjs';
 
+import { ListView } from "tns-core-modules/ui/list-view";
+
 @Component({
     moduleId: module.id,
     selector: 'ns-task-list',
@@ -13,8 +16,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
-    @Input() tasks: Task[];
-    @Input() label: string;
+    @Input() tasks$: Observable<Task[]>;
 
     selectedId$: Observable<any>;
 
@@ -23,6 +25,9 @@ export class TaskListComponent implements OnInit {
     }
 
     ngOnInit() {
+        // setTimeout(() => {
+        //     console.log(this.task);
+        // }, 4000)
     }
 
     onSelect(id) {
@@ -31,4 +36,7 @@ export class TaskListComponent implements OnInit {
     }
 
 
+    onItemTap(args: ItemEventData): void {
+        console.log('Item with index: ' + args.index + ' tapped');
+    }
 }

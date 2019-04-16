@@ -2,15 +2,26 @@
     <Label class="action-bar-title" text="ToDo-demo"></Label>
 </ActionBar>
 
-<!--<GridLayout class="page">-->
-<!--    <main class="container">-->
-<!--        <Image src="https://user-images.githubusercontent.com/544280/42960643-66d498ac-8b5a-11e8-8946-7224eefea6a5.jpg"></Image>-->
-<!--    </main>-->
-<!--</GridLayout>-->
 
-<GridLayout class="page">
-    <ns-task-list [tasks]="tasks$ | async" [label]="'Список задач'" >
-    </ns-task-list>
+<GridLayout rows="*, auto">
+    <StackLayout row="0">
+        <!-- Main Content Example Start -->
+        <StackLayout margin="10 0 10 0" padding="10 0">
+
+            <ns-new-task></ns-new-task>
+
+            <ns-task-list [tasks$]="tasks$"></ns-task-list>
+
+        </StackLayout>
+        <!-- Main Content Example End -->
+    </StackLayout>
+
+    <!-- Description -->
+    <Label row="1" letterSpacing="0.2" class="description">
+        <FormattedString>
+            <Span color="#fff" fontSize="18" fontWeight="bold" text="TODAY"></Span>
+        </FormattedString>
+    </Label>
+    <!-- Description End -->
+
 </GridLayout>
-
-

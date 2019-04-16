@@ -1,6 +1,12 @@
 <!--<li (click)="select.emit(task.id)">{{task.description}}</li>-->
 
-<Label [text]="task.description" (tap)="onTap()" class="item-task"
-       [ngClass]="{'selected-item': task.id === selectedId }"
-       verticalAlignment="center" style="width: 60%"></Label>
 
+<FlexboxLayout (tap)="onTap()" [ngClass]="{'selected-item': task.id === selectedId }" flexDirection="row">
+    <GridLayout columns="40, *" height="50" margin="2.5, 10" padding="10, 20" borderRadius="10">
+        <StackLayout col="0" verticalAlignment="center" horizontalAlignment="left" class="checkbox">
+        </StackLayout>
+        <StackLayout col="1" verticalAlignment="center" horizontalAlignment="left" borderRadius="5">
+            <Label fontSize="18" [text]="task.description"></Label>
+        </StackLayout>
+    </GridLayout>
+</FlexboxLayout>

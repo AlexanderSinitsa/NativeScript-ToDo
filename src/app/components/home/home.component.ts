@@ -7,9 +7,10 @@ import { Task } from '~/app/models/task';
 
 
 @Component({
-    selector: "Home",
+    selector: 'Home',
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
     tasks$: Observable<Task[]>;

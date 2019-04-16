@@ -18,3 +18,13 @@ components that have the btn class name.
 .btn {
     font-size: 18;
 }
+
+.br {
+    border-width: 1;
+    border-color: red;
+}
+
+.bb {
+    border-width: 1;
+    border-color: blue;
+}
