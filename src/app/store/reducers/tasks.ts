@@ -14,17 +14,17 @@ export const initialState: State = {
     tasks: {
         1: {
             id: 1,
-            executed: false,
+            done: false,
             description: 'Say "Hi!"'
         },
         2: {
             id: 2,
-            executed: false,
+            done: false,
             description: 'Say "Good."'
         },
         3: {
             id: 3,
-            executed: false,
+            done: false,
             description: 'Say "Bye!"'
         }
     },
@@ -36,6 +36,9 @@ export function reducer(state = initialState, action: taskAction.Action) {
         case taskAction.ADD_TASK: {
             const description: string = action.payload;
             const newTask: Task = new NewTask(state.ids, description);
+            setTimeout(() => {
+                console.log(state);
+            }, 1000)
             return {
                 ...state,
                 ids: [...state.ids, newTask.id],
@@ -51,6 +54,18 @@ export function reducer(state = initialState, action: taskAction.Action) {
             };
         }
 
+        case taskAction.TOGGLE_TASK_STATUS: {
+            const id = action.payload;
+            const currentStatus = state.tasks[id].done;
+            return {
+                ...state, tasks: {
+                    ...state.tasks, [id]: {
+                        ...state.tasks[id], done: !currentStatus
+                    }
+                }
+            }
+        }
+
         default:
             return state;
     }
@@ -59,11 +74,12 @@ export function reducer(state = initialState, action: taskAction.Action) {
 class NewTask {
     id: number;
     description: string;
-    executed: boolean;
+    done: boolean;
+
     constructor(ids, description) {
         this.description = description;
         this.id = this.getMinAvailableId(ids);
-        this.executed = false;
+        this.done = false;
     }
 
     private getMinAvailableId = (ids: number[]): number => {

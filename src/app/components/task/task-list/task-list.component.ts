@@ -1,4 +1,3 @@
-import { ItemEventData } from "tns-core-modules/ui/list-view"
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -6,8 +5,7 @@ import { Task } from '~/app/models/task';
 import * as taskAction from '~/app/store/actions/tasks';
 import * as fromRoot from '~/app/store/reducers';
 import { Observable } from 'rxjs';
-
-import { ListView } from "tns-core-modules/ui/list-view";
+import { map } from 'rxjs/operators';
 
 @Component({
     moduleId: module.id,
@@ -17,17 +15,19 @@ import { ListView } from "tns-core-modules/ui/list-view";
 })
 export class TaskListComponent implements OnInit {
     @Input() tasks$: Observable<Task[]>;
+    @Input() showDoneTasks: boolean = false;
 
     selectedId$: Observable<any>;
+    filteredTasks$: Observable<Task[]>;
 
     constructor(private store: Store<fromRoot.State>) {
         this.selectedId$ = store.select(fromRoot.getSelected);
     }
 
     ngOnInit() {
-        // setTimeout(() => {
-        //     console.log(this.task);
-        // }, 4000)
+        this.filteredTasks$ = this.tasks$.pipe(
+            map(tasks => tasks.filter(task => task.done === this.showDoneTasks))
+        )
     }
 
     onSelect(id) {
@@ -35,8 +35,4 @@ export class TaskListComponent implements OnInit {
         this.store.dispatch(new taskAction.Select(id));
     }
 
-
-    onItemTap(args: ItemEventData): void {
-        console.log('Item with index: ' + args.index + ' tapped');
-    }
 }

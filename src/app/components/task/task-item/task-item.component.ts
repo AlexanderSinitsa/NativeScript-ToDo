@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '~/app/models/task';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '~/app/store/reducers';
+import * as taskAction from '~/app/store/actions/tasks';
 
 
 @Component({
@@ -13,7 +16,7 @@ export class TaskItemComponent implements OnInit {
     @Input() selectedId: number;
     @Output() select = new EventEmitter();
 
-    constructor() {
+    constructor(private store: Store<fromRoot.State>) {
     }
 
     ngOnInit() {
@@ -22,6 +25,10 @@ export class TaskItemComponent implements OnInit {
     onTap() {
         console.log('Tap <- item');
         this.select.emit()
+    }
+
+    toggleTaskStatus(id: number) {
+        this.store.dispatch(new taskAction.toggleTaskStatus(id))
     }
 
 }

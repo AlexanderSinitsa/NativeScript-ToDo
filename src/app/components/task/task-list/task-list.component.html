@@ -1,9 +1,8 @@
-
-<ListView class="list-group" [items]="tasks$ | async" style="height:100%">
+<ListView class="list-group" [items]="filteredTasks$ | async">
     <ng-template let-task="item">
-
-        <ns-task-item (tap)="onSelect(task.id)" [task]="task" [selectedId]="selectedId$ | async"></ns-task-item>
-
+        <ScrollView>
+            <ns-task-item (tap)="onSelect(task.id)" [task]="task" [selectedId]="selectedId$ | async"></ns-task-item>
+        </ScrollView>
     </ng-template>
 </ListView>
 

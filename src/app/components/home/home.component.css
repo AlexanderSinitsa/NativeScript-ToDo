@@ -1,6 +1,18 @@
-.description {
-    height: 120;
+.done-tasks-container {
+    height: 220;
     padding: 10;
-    border-color: darkcyan;
-    border-width: 1px;
+    border-top-color: darkcyan;
+    border-top-width: 1px;
+}
+
+.done-tasks-title {
+    border-bottom-color: darkcyan;
+    border-bottom-width: 1px;
+    height: 50;
+    padding: 6, 0;
+    text-align: center;
+    vertical-align: center;
+    font-weight: bold;
+    font-size: 17;
+
 }

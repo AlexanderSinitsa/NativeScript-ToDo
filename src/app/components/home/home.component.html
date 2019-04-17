@@ -9,19 +9,19 @@
         <StackLayout margin="10 0 10 0" padding="10 0">
 
             <ns-new-task></ns-new-task>
-
             <ns-task-list [tasks$]="tasks$"></ns-task-list>
 
         </StackLayout>
         <!-- Main Content Example End -->
     </StackLayout>
 
-    <!-- Description -->
-    <Label row="1" letterSpacing="0.2" class="description">
-        <FormattedString>
-            <Span color="#fff" fontSize="18" fontWeight="bold" text="TODAY"></Span>
-        </FormattedString>
-    </Label>
-    <!-- Description End -->
+    <!-- Done-tasks -->
+    <StackLayout row="1" class="done-tasks-container">
+        <Label text="Done tasks" class="done-tasks-title"></Label>
+        <ns-task-list [tasks$]="tasks$" [showDoneTasks]="true"></ns-task-list>
+    </StackLayout>
+    <!-- Done-tasks End -->
 
 </GridLayout>
+
+

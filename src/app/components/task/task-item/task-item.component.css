@@ -11,3 +11,7 @@
 .selected-item {
     background-color: aliceblue;
 }
+
+.done-task {
+    text-decoration: line-through;
+}
