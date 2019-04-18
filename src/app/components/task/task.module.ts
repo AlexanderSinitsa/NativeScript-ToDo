@@ -6,11 +6,17 @@ import { NativeScriptFormsModule } from 'nativescript-angular';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { NewTaskComponent } from './new-task/new-task.component';
-
+import { EffectsModule } from '@ngrx/effects';
+import { TaskEffects } from '~/app/store/effects/sync-store.effects';
 
 
 @NgModule({
-    imports: [CommonModule, NativeScriptCommonModule, NativeScriptFormsModule],
+    imports: [
+        CommonModule,
+        NativeScriptCommonModule,
+        NativeScriptFormsModule,
+        EffectsModule.forFeature([TaskEffects])
+    ],
     declarations: [TaskListComponent, TaskItemComponent, NewTaskComponent],
     exports: [TaskListComponent, TaskItemComponent, NewTaskComponent]
 })

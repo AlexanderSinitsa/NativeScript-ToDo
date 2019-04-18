@@ -1,6 +1,7 @@
 import { Task } from '~/app/models/task';
 
 import * as taskAction from '~/app/store/actions/tasks';
+import * as appSettings from 'tns-core-modules/application-settings';
 
 
 export interface State {
@@ -9,36 +10,11 @@ export interface State {
     selected: number;
 }
 
-export const initialState: State = {
-    ids: [1, 2, 3],
-    tasks: {
-        1: {
-            id: 1,
-            done: false,
-            description: 'Say "Hi!"'
-        },
-        2: {
-            id: 2,
-            done: false,
-            description: 'Say "Good."'
-        },
-        3: {
-            id: 3,
-            done: false,
-            description: 'Say "Bye!"'
-        }
-    },
-    selected: null
-};
-
-export function reducer(state = initialState, action: taskAction.Action) {
+export function reducer(state = getInitialState(), action: taskAction.Action) {
     switch (action.type) {
         case taskAction.ADD_TASK: {
             const description: string = action.payload;
             const newTask: Task = new NewTask(state.ids, description);
-            setTimeout(() => {
-                console.log(state);
-            }, 1000)
             return {
                 ...state,
                 ids: [...state.ids, newTask.id],
@@ -94,6 +70,34 @@ class NewTask {
     };
 }
 
+function getInitialState(): State {
+    let stateBackup;
+    try {
+        stateBackup = JSON.parse(appSettings.getString("state"));
+    } finally {
+    }
+    return stateBackup ? stateBackup : {
+        ids: [1, 2, 3],
+        tasks: {
+            1: {
+                id: 1,
+                done: false,
+                description: 'Say "Hi!!!"'
+            },
+            2: {
+                id: 2,
+                done: false,
+                description: 'Say "Good."'
+            },
+            3: {
+                id: 3,
+                done: false,
+                description: 'Say "Bye!"'
+            }
+        },
+        selected: null
+    };
+}
 
 export const getIds = (state: State) => state.ids;
 export const getTasks = (state: State) => state.tasks;

@@ -4,8 +4,10 @@ import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 import { TaskModule } from './../task/task.module';
 import { StoreModule } from "@ngrx/store";
-import { reducers, metaReducers } from "~/app/store/reducers";
+import { metaReducers, reducers } from "~/app/store/reducers";
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { EffectsModule } from '@ngrx/effects';
+import { TaskEffects } from '~/app/store/effects/sync-store.effects';
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
         HomeRoutingModule,
         // StoreModule.forRoot(reducers, { metaReducers }),
         StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([TaskEffects]),
         TaskModule
     ],
     declarations: [

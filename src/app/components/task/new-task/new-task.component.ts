@@ -13,7 +13,6 @@ import * as fromRoot from '~/app/store/reducers';
     styleUrls: ['./new-task.component.css']
 })
 export class NewTaskComponent implements OnInit {
-    selectedId$: Observable<any>;
     description = '';
 
     constructor(private store: Store<fromRoot.State>) {
@@ -27,8 +26,6 @@ export class NewTaskComponent implements OnInit {
             this.store.dispatch(new taskAction.AddTask(this.description));
             this.description = '';
         }
-
     }
-
 
 }
