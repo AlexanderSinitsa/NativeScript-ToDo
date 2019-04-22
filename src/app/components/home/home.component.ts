@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '~/app/store/reducers';
 import { Task } from '~/app/models/task';
+import * as taskAction from '~/app/store/actions/tasks';
 
 
 @Component({
@@ -19,5 +20,10 @@ export class HomeComponent {
         // this.tasks$ = store.select(fromRoot.getAllTasks);
         this.tasks$ = store.pipe(select(fromRoot.getAllTasks));
     }
+
+    deleteDoneTasks() {
+        this.store.dispatch(new taskAction.DeleteDoneTasks())
+    }
+
 
 }

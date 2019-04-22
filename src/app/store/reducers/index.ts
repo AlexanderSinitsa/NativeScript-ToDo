@@ -1,10 +1,4 @@
-import {
-    ActionReducerMap,
-    createSelector,
-    createFeatureSelector,
-    ActionReducer,
-    MetaReducer,
-} from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, createFeatureSelector, createSelector, MetaReducer, } from '@ngrx/store';
 
 import * as fromTasks from './tasks';
 
@@ -21,13 +15,13 @@ export const reducers: ActionReducerMap<State> = {
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
     return function (state: State, action: any): State {
         console.log('action', action);
+        console.log('state', state);
         return reducer(state, action);
     };
 }
 
 export const metaReducers: MetaReducer<State>[] = [logger];
 //
-
 
 /**
  *  When using the createSelector and createFeatureSelector functions
@@ -50,20 +44,8 @@ export const getSelected = createSelector(
   fromTasks.getSelected,
 );
 
-// export const getSelectedTask = createSelector(
-//   getSelected,
-//   getTasks,
-//   (selectedId, tasks) => {
-//       return {
-//           ...tasks[selectedId]
-//       };
-//   }
-// );
-//
 export const getAllTasks = createSelector(
     getIds,
     getTasks,
-    (ids, tasks) => {
-        return ids.map(id => tasks[id]);
-    }
+    (ids, tasks) => ids.map(id => tasks[id])
 );

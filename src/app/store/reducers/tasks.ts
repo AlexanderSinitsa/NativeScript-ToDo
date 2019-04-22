@@ -1,7 +1,8 @@
-import { Task } from '~/app/models/task';
 
-import * as taskAction from '~/app/store/actions/tasks';
 import * as appSettings from 'tns-core-modules/application-settings';
+
+import { Task } from '~/app/models/task';
+import * as taskAction from '~/app/store/actions/tasks';
 
 
 export interface State {
@@ -42,6 +43,34 @@ export function reducer(state = getInitialState(), action: taskAction.Action) {
             }
         }
 
+        case taskAction.EDIT_DESCRIPTION: {
+            const id = action.payload.id;
+            return {
+                ...state, tasks: {
+                    ...state.tasks, [id]: {
+                        ...state.tasks[id], description: action.payload.description
+                    }
+                }
+            }
+        }
+
+
+        case taskAction.DELETE_DONE_TASKS: {
+            const activeTasks = {};
+            const activeIds = state.ids.filter(id => {
+                const isActiveTask = state.tasks[id].done === false;
+                if (isActiveTask) {
+                    activeTasks[id] = state.tasks[id];
+                }
+                return isActiveTask;
+            });
+            return {
+                ...state,
+                ids: activeIds,
+                tasks: activeTasks
+            }
+        }
+
         default:
             return state;
     }
@@ -74,7 +103,8 @@ function getInitialState(): State {
     let stateBackup;
     try {
         stateBackup = JSON.parse(appSettings.getString("state"));
-    } finally {
+    } catch {
+        console.log(stateBackup, '<======= get state');
     }
     return stateBackup ? stateBackup : {
         ids: [1, 2, 3],
@@ -82,7 +112,7 @@ function getInitialState(): State {
             1: {
                 id: 1,
                 done: false,
-                description: 'Say "Hi!!!"'
+                description: 'Say "Hi!"'
             },
             2: {
                 id: 2,

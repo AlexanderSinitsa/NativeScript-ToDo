@@ -17,11 +17,14 @@
 
     <!-- Done-tasks -->
     <StackLayout row="1" class="done-tasks-container">
-        <Label text="Done tasks" class="done-tasks-title"></Label>
+        <GridLayout columns="*, auto" rows="auto" class="done-tasks-title">
+            <Label col="0" text="Done tasks" ></Label>
+            <Label (tap)="deleteDoneTasks()" col="1" class="far clean-button" text="&#xf057;"></Label>
+        </GridLayout>
+
         <ns-task-list [tasks$]="tasks$" [showDoneTasks]="true"></ns-task-list>
     </StackLayout>
     <!-- Done-tasks End -->
 
 </GridLayout>
-
 

@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
 import * as taskAction from '~/app/store/actions/tasks';
 import * as fromRoot from '~/app/store/reducers';

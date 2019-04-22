@@ -1,6 +1,6 @@
 .done-tasks-container {
     height: 220;
-    padding: 10;
+    padding: 10, 0;
     border-top-color: darkcyan;
     border-top-width: 1px;
 }
@@ -15,4 +15,12 @@
     font-weight: bold;
     font-size: 17;
 
+}
+
+.clean-button {
+    margin-right: 32;
+    font-size: 30;
+    color: #ccc;
+    vertical-align: center;
+    horizontal-align: center;
 }
