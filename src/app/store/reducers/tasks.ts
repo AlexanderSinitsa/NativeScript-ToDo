@@ -1,26 +1,33 @@
-
 import * as appSettings from 'tns-core-modules/application-settings';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-import { Task } from '~/app/models/task';
+import { ITask } from '~/app/models/task';
 import * as taskAction from '~/app/store/actions/tasks';
 
 
-export interface State {
-    ids: number[];
-    tasks: { [id: number]: Task };
-    selected: number;
+export interface State extends EntityState<ITask> {
+    // additional entities state properties
+    selected: string | null;
 }
+
+// export function selectTaskId(a: ITask): string {
+//     // In this case this would be optional since primary key is id
+//     return String(a.id);
+// }
+export const adapter: EntityAdapter<ITask> = createEntityAdapter<ITask>({
+    // selectId: selectTaskId,
+    sortComparer: false, // a sorting function or false
+});
+
+// export const initialState: State = adapter.getInitialState({
+//     // additional entity state properties
+//     selected: null,
+// });
 
 export function reducer(state = getInitialState(), action: taskAction.Action) {
     switch (action.type) {
         case taskAction.ADD_TASK: {
-            const description: string = action.payload;
-            const newTask: Task = new NewTask(state.ids, description);
-            return {
-                ...state,
-                ids: [...state.ids, newTask.id],
-                tasks: {...state.tasks, [newTask.id]: newTask}
-            };
+            return adapter.addOne(action.payload, state);
         }
 
         case taskAction.SELECT: {
@@ -32,43 +39,18 @@ export function reducer(state = getInitialState(), action: taskAction.Action) {
         }
 
         case taskAction.TOGGLE_TASK_STATUS: {
-            const id = action.payload;
-            const currentStatus = state.tasks[id].done;
-            return {
-                ...state, tasks: {
-                    ...state.tasks, [id]: {
-                        ...state.tasks[id], done: !currentStatus
-                    }
-                }
-            }
+            return adapter.updateOne(action.payload, state)
         }
 
         case taskAction.EDIT_DESCRIPTION: {
-            const id = action.payload.id;
-            return {
-                ...state, tasks: {
-                    ...state.tasks, [id]: {
-                        ...state.tasks[id], description: action.payload.description
-                    }
-                }
-            }
+            return adapter.updateOne(action.payload, state)
         }
 
 
         case taskAction.DELETE_DONE_TASKS: {
-            const activeTasks = {};
-            const activeIds = state.ids.filter(id => {
-                const isActiveTask = state.tasks[id].done === false;
-                if (isActiveTask) {
-                    activeTasks[id] = state.tasks[id];
-                }
-                return isActiveTask;
-            });
-            return {
-                ...state,
-                ids: activeIds,
-                tasks: activeTasks
-            }
+            const doneTaskIds = (getIds(state) as number[])
+                .filter(id => state.entities[id].done === true);
+            return adapter.removeMany(doneTaskIds, state);
         }
 
         default:
@@ -76,39 +58,17 @@ export function reducer(state = getInitialState(), action: taskAction.Action) {
     }
 }
 
-class NewTask {
-    id: number;
-    description: string;
-    done: boolean;
-
-    constructor(ids, description) {
-        this.description = description;
-        this.id = this.getMinAvailableId(ids);
-        this.done = false;
-    }
-
-    private getMinAvailableId = (ids: number[]): number => {
-        const sortedIds = ids.sort();
-        console.log(sortedIds);
-        ids.forEach((id, i) => {
-            if (id !== i) {
-                return i;
-            }
-        });
-        return ids.length + 1;
-    };
-}
-
 function getInitialState(): State {
     let stateBackup;
     try {
         stateBackup = JSON.parse(appSettings.getString("state"));
     } catch {
-        console.log(stateBackup, '<======= get state');
+        console.log(stateBackup, '<======= appSettings has no data');
     }
+    // if the AppSetting store has no data, we return the default state
     return stateBackup ? stateBackup : {
         ids: [1, 2, 3],
-        tasks: {
+        entities: {
             1: {
                 id: 1,
                 done: false,
@@ -129,6 +89,14 @@ function getInitialState(): State {
     };
 }
 
-export const getIds = (state: State) => state.ids;
-export const getTasks = (state: State) => state.tasks;
+// get the selectors
+const {
+    selectIds,      // select the array of task ids
+    selectEntities, // select the dictionary of task entities
+    selectAll,      // select the array of tasks
+    selectTotal,    // select the total task count
+} = adapter.getSelectors();
+
+export const getIds = selectIds;
+export const getTasks = selectAll;
 export const getSelected = (state: State) => state.selected;

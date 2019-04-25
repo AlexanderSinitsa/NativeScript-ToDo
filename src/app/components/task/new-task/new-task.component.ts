@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as taskAction from '~/app/store/actions/tasks';
 import * as fromRoot from '~/app/store/reducers';
+import { ITask, Task } from "~/app/models/task";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class NewTaskComponent implements OnInit {
 
     addTask() {
         if (this.description) {
-            this.store.dispatch(new taskAction.AddTask(this.description));
+            const newTask: ITask = new Task(this.description);
+            this.store.dispatch(new taskAction.AddTask(newTask));
             this.description = '';
         }
     }

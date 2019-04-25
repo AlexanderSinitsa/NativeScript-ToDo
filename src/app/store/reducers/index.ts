@@ -34,18 +34,12 @@ export const getIds = createSelector(
     fromTasks.getIds,
 );
 
-export const getTasks = createSelector(
-    getTaskState,
-    fromTasks.getTasks,
-);
-
 export const getSelected = createSelector(
   getTaskState,
   fromTasks.getSelected,
 );
 
 export const getAllTasks = createSelector(
-    getIds,
-    getTasks,
-    (ids, tasks) => ids.map(id => tasks[id])
+    getTaskState,
+    fromTasks.getTasks,
 );

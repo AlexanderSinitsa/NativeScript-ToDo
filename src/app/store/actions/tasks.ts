@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 
-import { Task } from '~/app/models/task';
+import { ITask } from '~/app/models/task';
 
 
 export const SELECT = '[Tasks] Select';
@@ -13,21 +14,21 @@ export const DELETE_DONE_TASKS = '[Tasks] Delete Done Task';
 export class Select implements Action {
     readonly type = SELECT;
 
-    constructor(public payload: number) {
+    constructor(public payload: string) {
     }
 }
 
 export class AddTask implements Action {
     readonly type = ADD_TASK;
 
-    constructor(public payload: string) {
+    constructor(public payload: ITask) {
     }
 }
 
 export class ToggleTaskStatus implements Action {
     readonly type = TOGGLE_TASK_STATUS;
 
-    constructor(public payload: number) {
+    constructor(public payload: Update<ITask>) {
     }
 }
 
@@ -41,7 +42,7 @@ export class DeleteDoneTasks implements Action {
 export class EditDescription implements Action {
     readonly type = EDIT_DESCRIPTION;
 
-    constructor(public payload: Task) {
+    constructor(public payload: Update<ITask>) {
     }
 }
 

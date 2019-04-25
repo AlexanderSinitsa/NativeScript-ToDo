@@ -1,9 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Task } from '~/app/models/task';
+import { ITask } from '~/app/models/task';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '~/app/store/reducers';
 import * as taskAction from '~/app/store/actions/tasks';
 import { Observable } from 'rxjs';
+import { Update } from '@ngrx/entity';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./task-item.component.css']
 })
 export class TaskItemComponent implements OnInit {
-    @Input() task: Task;
+    @Input() task: ITask;
     @Output() select = new EventEmitter();
     @ViewChild('input') inputEl: ElementRef;
 
@@ -33,9 +34,12 @@ export class TaskItemComponent implements OnInit {
         this.store.dispatch(new taskAction.Select(this.task.id));
     }
 
-    toggleTaskStatus(event, id: number) {
-        // console.log(event, '--');
-        this.store.dispatch(new taskAction.ToggleTaskStatus(id))
+    toggleTaskStatus() {
+        const updateTask: Update<ITask> = {
+            id: this.task.id,
+            changes: {done: !this.task.done}
+        };
+        this.store.dispatch(new taskAction.ToggleTaskStatus(updateTask))
     }
 
     doEditable() {
@@ -58,8 +62,11 @@ export class TaskItemComponent implements OnInit {
 
     confirmDescription() {
         this.isEditable = false;
-        this.task.description = this.newTaskDescription;
-        this.store.dispatch(new taskAction.EditDescription(this.task))
+        const updateTask: Update<ITask> = {
+            id: this.task.id,
+            changes: {description: this.newTaskDescription}
+        };
+        this.store.dispatch(new taskAction.EditDescription(updateTask))
     }
 
 

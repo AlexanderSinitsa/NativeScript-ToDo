@@ -1,6 +1,6 @@
 <FlexboxLayout [ngClass]="{'selected-item': task.id === (selectedId$ | async)}" flexDirection="row">
     <GridLayout (tap)="selectTask()" columns="40, *, 50" height="50" margin="2.5, 10" padding="0, 10">
-        <StackLayout col="0" (tap)="toggleTaskStatus($event, task.id)" verticalAlignment="center"
+        <StackLayout col="0" (tap)="toggleTaskStatus()" verticalAlignment="center"
                      horizontalAlignment="left" class="checkbox">
         </StackLayout>
 
