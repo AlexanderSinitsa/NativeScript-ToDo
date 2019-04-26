@@ -17,8 +17,15 @@ components that have the btn class name.
 */
 
 .far {
-    font-family: Font Awesome 5 Free, fa-regular-400;
-    font-weight: 400;
+    font-family: "Font Awesome 5 Free", "fa-regular-400", "fa-solid-400";
+}
+
+.fa {
+    font-family: "Font Awesome 5 Free", "fa-regular-400", "fa-solid-900";
+}
+
+.fa-solid {
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
 }
 
 .btn {
