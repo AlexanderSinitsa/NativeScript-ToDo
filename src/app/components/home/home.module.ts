@@ -1,14 +1,15 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { EffectsModule } from '@ngrx/effects';
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
+import { StoreModule } from '@ngrx/store';
 
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 import { TaskModule } from './../task/task.module';
-import { StoreModule } from "@ngrx/store";
 import { metaReducers, reducers } from "~/app/store/reducers";
-import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { EffectsModule } from '@ngrx/effects';
 import { TaskEffects } from '~/app/store/effects/sync-store.effects';
-import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
+import { DoneTasksComponent } from './done-tasks/done-tasks.component';
 
 
 @NgModule({
@@ -22,12 +23,14 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
         NativeScriptUISideDrawerModule
     ],
     declarations: [
-        HomeComponent
+        HomeComponent,
+        DoneTasksComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class HomeModule { }
+export class HomeModule {
+}
 
 

@@ -6,7 +6,8 @@
             </StackLayout>
             <ListView id="list-view" [items]="pages" (itemTap)="goToPage($event)" height="100%">
                 <ng-template let-page="item">
-                    <Label [text]="page.name" padding="20" class="drawer-item"></Label>
+                    <Button [text]="page.name" [nsRouterLink]="['./done-tasks']" pageTransition="slide" padding="20"
+                            class="drawer-item"></Button>
                 </ng-template>
             </ListView>
         </StackLayout>
