@@ -7,3 +7,11 @@
   border-color: #dddddd; */
   /* background-color: white; */
 }
+
+.action-bt {
+  margin-right: 25;
+  font-size: 30;
+  color: #ccc;
+  vertical-align: center;
+  horizontal-align: center;
+}

@@ -15,10 +15,10 @@
                        class="new-task"></TextField>
         </StackLayout>
 
-        <StackLayout *ngIf="!isEditable" col="2" (tap)="doEditable()" class="edit-button">
+        <StackLayout *ngIf="!isEditable" col="2" (tap)="doEditable()" class="action-bt">
             <Label class="far" text="&#xf044;"></Label>
         </StackLayout>
-        <StackLayout *ngIf="isEditable" col="2" (tap)="confirmDescription()" class="edit-button">
+        <StackLayout *ngIf="isEditable" col="2" (tap)="confirmDescription()" class="action-bt">
             <Label class="far" text="&#xf1d8;"></Label>
         </StackLayout>
     </GridLayout>

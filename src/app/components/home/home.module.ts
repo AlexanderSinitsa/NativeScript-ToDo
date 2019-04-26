@@ -8,6 +8,7 @@ import { metaReducers, reducers } from "~/app/store/reducers";
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { TaskEffects } from '~/app/store/effects/sync-store.effects';
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TaskEffects } from '~/app/store/effects/sync-store.effects';
         // StoreModule.forRoot(reducers, { metaReducers }),
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([TaskEffects]),
-        TaskModule
+        TaskModule,
+        NativeScriptUISideDrawerModule
     ],
     declarations: [
         HomeComponent
