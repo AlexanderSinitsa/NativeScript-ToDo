@@ -16,6 +16,11 @@
     font-size: 17;
 }
 
+.done-tasks-bt {
+    padding: 20;
+    font-size: 18;
+}
+
 .clean-button {
     margin-right: 32;
     font-size: 30;

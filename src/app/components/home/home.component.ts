@@ -18,10 +18,10 @@ export class HomeComponent implements OnInit {
     tasks$: Observable<Task[]>;
     @ViewChild("rsd") rSideDrawer: ElementRef;
 
-    pages: { index: number, name: string }[] = [
-        {index: 0, name: "Home"},
-        {index: 1, name: "Done tasks"},
-        {index: 2, name: "Settings"}
+    pages: { index: number, name: string, url: string }[] = [
+        {index: 0, name: "Home", url: '/home'},
+        {index: 1, name: "Done tasks", url: '/home/done-tasks'},
+        {index: 2, name: "Settings", url: '/settings'}
     ];
 
     constructor(private store: Store<fromRoot.State>, private page: Page) {
@@ -29,15 +29,9 @@ export class HomeComponent implements OnInit {
         this.tasks$ = store.pipe(select(fromRoot.getAllTasks));
     }
 
-    deleteDoneTasks() {
-        this.store.dispatch(new taskAction.DeleteDoneTasks())
-    }
-
-
     ngOnInit(): void {
         this.page.actionBarHidden = true;
     }
-
 
     onOpenDrawerTap(args): void {
         this.rSideDrawer.nativeElement.toggleDrawerState();

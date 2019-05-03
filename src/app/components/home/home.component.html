@@ -6,7 +6,7 @@
             </StackLayout>
             <ListView id="list-view" [items]="pages" (itemTap)="goToPage($event)" height="100%">
                 <ng-template let-page="item">
-                    <Button [text]="page.name" [nsRouterLink]="['./done-tasks']" pageTransition="slide" padding="20"
+                    <Button [text]="page.name" [nsRouterLink]="[page.url]" pageTransition="slide" padding="20"
                             class="drawer-item"></Button>
                 </ng-template>
             </ListView>
@@ -18,31 +18,22 @@
             <Label col="0" text="&#xf0c9;" class="fa-solid menu-button"></Label>
             <label col="1" text="ToDo" class="drawer-heading"></label>
         </GridLayout>
-
-        <!--        <GridLayout rows="*, auto">-->
         <StackLayout row="1">
             <!-- Main Content Example Start -->
             <StackLayout margin="10 0 10 0" padding="10 0">
-
                 <ns-new-task></ns-new-task>
                 <ns-task-list [tasks$]="tasks$"></ns-task-list>
-
             </StackLayout>
             <!-- Main Content Example End -->
         </StackLayout>
+        <Button row="2"
+                text="Done tasks"
+                [nsRouterLink]="['./done-tasks']"
+                pageTransition="slide"
+                class="done-tasks-bt"
+        ></Button>
 
-        <!-- Done-tasks -->
-        <StackLayout row="2" class="done-tasks-container">
-            <GridLayout columns="*, auto" rows="auto" class="done-tasks-title">
-                <Label col="0" text="Done tasks"></Label>
-                <Label (tap)="deleteDoneTasks()" col="1" class="far clean-button" text="&#xf057;"></Label>
-            </GridLayout>
-
-            <ns-task-list [tasks$]="tasks$" [showDoneTasks]="true"></ns-task-list>
-        </StackLayout>
-        <!-- Done-tasks End -->
     </GridLayout>
-    <!--    </GridLayout>-->
 
 </RadSideDrawer>
 
