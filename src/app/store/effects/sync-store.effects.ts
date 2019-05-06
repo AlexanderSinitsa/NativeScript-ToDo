@@ -18,20 +18,21 @@ export class TaskEffects {
     @Effect({dispatch: false})
     saveAllStat$: Observable<any> = this.actions$.pipe(
         ofType(
+            // Save state to device memory upon these actions:
             taskAction.TOGGLE_TASK_STATUS,
             taskAction.ADD_TASK,
             taskAction.EDIT_DESCRIPTION,
-            taskAction.DELETE_DONE_TASKS,
-            taskAction.SELECT),
+            taskAction.DELETE_DONE_TASKS),
         switchMap(action => this.store.pipe(
             select(fromRoot.getTaskState),
             take(1),
             tap(state => {
                 try {
+                    // Save state to device memory
                     appSettings.setString("state", JSON.stringify(state));
                     // const stateBackup = appSettings.getString("state");
-                    console.log("+++", action);
-                    console.log('+++', state);
+                    console.log("action ==>", action);
+                    console.log('state ==>', state);
                 } catch (err) {
                     console.error(err);
                 }

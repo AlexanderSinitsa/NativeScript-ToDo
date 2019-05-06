@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular';
 
 @Component({
@@ -7,12 +7,9 @@ import { RouterExtensions } from 'nativescript-angular';
     styleUrls: ['./not-found.component.css'],
     moduleId: module.id,
 })
-export class NotFoundComponent implements OnInit {
+export class NotFoundComponent {
 
     constructor(private routerExtensions: RouterExtensions) {
-    }
-
-    ngOnInit() {
     }
 
     goBack(): void {

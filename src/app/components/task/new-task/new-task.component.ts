@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as taskAction from '~/app/store/actions/tasks';
@@ -12,13 +12,10 @@ import { ITask, Task } from "~/app/models/task";
     templateUrl: './new-task.component.html',
     styleUrls: ['./new-task.component.css']
 })
-export class NewTaskComponent implements OnInit {
+export class NewTaskComponent {
     description = '';
 
     constructor(private store: Store<fromRoot.State>) {
-    }
-
-    ngOnInit() {
     }
 
     addTask() {

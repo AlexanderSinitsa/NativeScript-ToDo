@@ -47,6 +47,7 @@
 }
 
 .drawer-item {
+    padding: 20;
     font-family: "Varela", "varela-regular";
     font-size: 18;
 }

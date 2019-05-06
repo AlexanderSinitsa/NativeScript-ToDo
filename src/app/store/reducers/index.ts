@@ -29,10 +29,10 @@ export const metaReducers: MetaReducer<State>[] = [logger];
  */
 export const getTaskState = createFeatureSelector<fromTasks.State>('tasks');
 
-export const getIds = createSelector(
-    getTaskState,
-    fromTasks.getIds,
-);
+// export const getIds = createSelector(
+//     getTaskState,
+//     fromTasks.getIds,
+// );
 
 export const getSelected = createSelector(
   getTaskState,

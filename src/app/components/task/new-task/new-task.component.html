@@ -1,7 +1,7 @@
 
-<GridLayout columns="*, 70" height="50" backgroundColor="#fff">
+<GridLayout columns="*, 70" height="50">
     <TextField col="0" class="new-task" hint="ADD NEW" [(ngModel)]="description"></TextField>
-    <StackLayout col="2" (tap)="addTask()" class="action-bt">
+    <StackLayout col="1" (tap)="addTask()" class="action-bt">
         <Label class="far" text="&#xf1d8;"></Label>
     </StackLayout>
 </GridLayout>

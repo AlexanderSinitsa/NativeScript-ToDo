@@ -5,7 +5,6 @@ import { Page } from 'tns-core-modules/ui/page';
 
 import * as fromRoot from '~/app/store/reducers';
 import { Task } from '~/app/models/task';
-import * as taskAction from '~/app/store/actions/tasks';
 
 
 @Component({
@@ -25,7 +24,6 @@ export class HomeComponent implements OnInit {
     ];
 
     constructor(private store: Store<fromRoot.State>, private page: Page) {
-        // this.tasks$ = store.select(fromRoot.getAllTasks);
         this.tasks$ = store.pipe(select(fromRoot.getAllTasks));
     }
 
@@ -33,11 +31,11 @@ export class HomeComponent implements OnInit {
         this.page.actionBarHidden = true;
     }
 
-    onOpenDrawerTap(args): void {
+    onOpenDrawerTap(): void {
         this.rSideDrawer.nativeElement.toggleDrawerState();
     }
 
-    goToPage(args): void {
+    goToPage(): void {
         this.rSideDrawer.nativeElement.toggleDrawerState();
     }
 

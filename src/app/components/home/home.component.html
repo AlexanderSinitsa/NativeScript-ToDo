@@ -1,30 +1,28 @@
 <RadSideDrawer #rsd drawerTransition="PushTransition">
+    <!--    Drawer-->
     <GridLayout tkDrawerContent>
         <StackLayout>
             <StackLayout height="56" class="drawer-container">
                 <Label text="Categories" class="drawer-heading"></Label>
             </StackLayout>
-            <ListView id="list-view" [items]="pages" (itemTap)="goToPage($event)" height="100%">
+            <ListView [items]="pages" (itemTap)="goToPage()" height="100%">
                 <ng-template let-page="item">
-                    <Button [text]="page.name" [nsRouterLink]="[page.url]" pageTransition="slide" padding="20"
+                    <Button [text]="page.name" [nsRouterLink]="[page.url]" pageTransition="slide"
                             class="drawer-item"></Button>
                 </ng-template>
             </ListView>
         </StackLayout>
     </GridLayout>
-
+    <!--    End Drawer-->
+    <!--    Main content-->
     <GridLayout tkMainContent rows="60, *, auto">
-        <GridLayout row="0" columns="60, *" (tap)="onOpenDrawerTap($event)">
-            <Label col="0" text="&#xf0c9;" class="fa-solid menu-button"></Label>
-            <label col="1" text="ToDo" class="drawer-heading"></label>
-        </GridLayout>
-        <StackLayout row="1">
-            <!-- Main Content Example Start -->
-            <StackLayout margin="10 0 10 0" padding="10 0">
-                <ns-new-task></ns-new-task>
-                <ns-task-list [tasks$]="tasks$"></ns-task-list>
-            </StackLayout>
-            <!-- Main Content Example End -->
+        <StackLayout row="0" orientation="horizontal" (tap)="onOpenDrawerTap()">
+            <Label width="60" text="&#xf0c9;" class="fa-solid menu-button"></Label>
+            <label text="ToDo" class="drawer-heading"></label>
+        </StackLayout>
+        <StackLayout row="1" margin="10 0 10 0" padding="10 0">
+            <ns-new-task></ns-new-task>
+            <ns-task-list [tasks$]="tasks$"></ns-task-list>
         </StackLayout>
         <Button row="2"
                 text="Done tasks"
@@ -32,9 +30,8 @@
                 pageTransition="slide"
                 class="done-tasks-bt"
         ></Button>
-
     </GridLayout>
-
+    <!--    End Main content-->
 </RadSideDrawer>
 
 

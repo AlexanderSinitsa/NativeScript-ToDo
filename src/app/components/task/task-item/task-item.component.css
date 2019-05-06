@@ -1,4 +1,9 @@
 
+.task-wrap {
+    height: 50;
+    margin: 2.5, 10;
+    padding: 0, 10;
+}
 .checkbox {
     height: 20;
     width: 20;

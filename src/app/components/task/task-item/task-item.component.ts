@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ITask } from '~/app/models/task';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '~/app/store/reducers';
@@ -13,21 +13,17 @@ import { Update } from '@ngrx/entity';
     templateUrl: './task-item.component.html',
     styleUrls: ['./task-item.component.css']
 })
-export class TaskItemComponent implements OnInit {
+export class TaskItemComponent  {
     @Input() task: ITask;
     @Output() select = new EventEmitter();
     @ViewChild('input') inputEl: ElementRef;
 
     selectedId$: Observable<any>;
-
     isEditable = false;
     newTaskDescription = '';
 
     constructor(private store: Store<fromRoot.State>) {
         this.selectedId$ = store.select(fromRoot.getSelected);
-    }
-
-    ngOnInit() {
     }
 
     selectTask() {

@@ -16,7 +16,8 @@ For example, the following CSS rule changes the font size of all UI
 components that have the btn class name.
 */
 
-.title-label {
+.title-label,
+.btn {
     font-size: 18;
 }
 
@@ -30,18 +31,4 @@ components that have the btn class name.
 
 .fa-solid {
     font-family: "Font Awesome 5 Free", "fa-solid-900";
-}
-
-.btn {
-    font-size: 18;
-}
-
-.br {
-    border-width: 1;
-    border-color: red;
-}
-
-.bb {
-    border-width: 1;
-    border-color: blue;
 }

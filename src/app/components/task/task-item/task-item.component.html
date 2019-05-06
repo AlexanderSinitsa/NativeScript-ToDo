@@ -1,25 +1,24 @@
-<FlexboxLayout [ngClass]="{'selected-item': task.id === (selectedId$ | async)}" flexDirection="row">
-    <GridLayout (tap)="selectTask()" columns="40, *, 50" height="50" margin="2.5, 10" padding="0, 10">
-        <StackLayout col="0" (tap)="toggleTaskStatus()" verticalAlignment="center"
-                     horizontalAlignment="left" class="checkbox">
-        </StackLayout>
+<GridLayout columns="40, *, 50"
+            (tap)="selectTask()"
+            [ngClass]="{'task-wrap': true, 'selected-item': task.id === (selectedId$ | async)}">
+    <StackLayout col="0" (tap)="toggleTaskStatus()" verticalAlignment="center"
+                 horizontalAlignment="left" class="checkbox"></StackLayout>
 
-        <StackLayout col="1" verticalAlignment="center" horizontalAlignment="left" borderRadius="5">
-            <Label *ngIf="!isEditable" [ngClass]="{'done-task': task.done === true }" fontSize="18"
-                   [text]="task.description"></Label>
-            <TextField #input
-                       *ngIf="isEditable"
-                       [(ngModel)]="newTaskDescription"
-                       (blur)="onBlur()"
-                       row="1"
-                       class="new-task"></TextField>
-        </StackLayout>
+    <StackLayout col="1" verticalAlignment="center" horizontalAlignment="left">
+        <Label *ngIf="!isEditable" [ngClass]="{'done-task': task.done === true }" fontSize="18"
+               [text]="task.description"></Label>
+        <TextField #input
+                   *ngIf="isEditable"
+                   [(ngModel)]="newTaskDescription"
+                   (blur)="onBlur()"
+                   row="1"
+                   class="new-task"></TextField>
+    </StackLayout>
 
-        <StackLayout *ngIf="!isEditable" col="2" (tap)="doEditable()" class="action-bt">
-            <Label class="far" text="&#xf044;"></Label>
-        </StackLayout>
-        <StackLayout *ngIf="isEditable" col="2" (tap)="confirmDescription()" class="action-bt">
-            <Label class="far" text="&#xf1d8;"></Label>
-        </StackLayout>
-    </GridLayout>
-</FlexboxLayout>
+    <StackLayout *ngIf="!isEditable" col="2" (tap)="doEditable()" class="action-bt">
+        <Label class="far" text="&#xf044;"></Label>
+    </StackLayout>
+    <StackLayout *ngIf="isEditable" col="2" (tap)="confirmDescription()" class="action-bt">
+        <Label class="far" text="&#xf1d8;"></Label>
+    </StackLayout>
+</GridLayout>
