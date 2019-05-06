@@ -34,6 +34,22 @@ export const getTaskState = createFeatureSelector<fromTasks.State>('tasks');
 //     fromTasks.getIds,
 // );
 
+export const getEditedTaskId = createSelector(
+    getTaskState,
+    fromTasks.getEditedTaskId,
+);
+
+export const getTaskEntities = createSelector(
+    getTaskState,
+    fromTasks.getTaskEntities,
+);
+
+export const getEditedTask = createSelector(
+    getTaskEntities,
+    getEditedTaskId,
+    (taskEntities, editedTaskId) => editedTaskId ? taskEntities[editedTaskId] : null
+);
+
 export const getSelected = createSelector(
   getTaskState,
   fromTasks.getSelected,

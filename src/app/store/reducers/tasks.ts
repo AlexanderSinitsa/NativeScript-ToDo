@@ -8,6 +8,7 @@ import * as taskAction from '~/app/store/actions/tasks';
 export interface State extends EntityState<ITask> {
     // additional entities state properties
     selected: string | null;
+    editedTaskId: string | null;
 }
 
 // export function selectTaskId(a: ITask): string {
@@ -38,12 +39,32 @@ export function reducer(state = getInitialState(), action: taskAction.Action) {
             };
         }
 
+        case taskAction.START_EDITING: {
+            const id = action.payload;
+            return {
+                ...state,
+                editedTaskId: id
+            };
+        }
+
         case taskAction.TOGGLE_TASK_STATUS: {
             return adapter.updateOne(action.payload, state)
         }
 
         case taskAction.EDIT_DESCRIPTION: {
-            return adapter.updateOne(action.payload, state)
+            const id = action.payload.id;
+            return {
+                ...state,
+                editedTaskId: null,
+                entities: {
+                    ...state.entities,
+                    [id]: {
+                        ...state.entities[id],
+                        ...action.payload.changes
+                    }
+                }
+            }
+            // return adapter.updateOne(action.payload, state)
         }
 
 
@@ -67,25 +88,26 @@ function getInitialState(): State {
     }
     // if the AppSetting store has no data, we return the default state
     return stateBackup ? stateBackup : {
-        ids: [1, 2, 3],
+        ids: ['1', '2', '3'],
         entities: {
-            1: {
-                id: 1,
+            '1': {
+                id: '1',
                 done: false,
                 description: 'Say "Hi!"'
             },
-            2: {
-                id: 2,
+            '2': {
+                id: '2',
                 done: false,
                 description: 'Say "Good."'
             },
-            3: {
-                id: 3,
+            '3': {
+                id: '3',
                 done: false,
                 description: 'Say "Bye!"'
             }
         },
-        selected: null
+        selected: null,
+        editedTaskId: null
     };
 }
 
@@ -99,4 +121,6 @@ const {
 
 export const getIds = selectIds;
 export const getTasks = selectAll;
+export const getTaskEntities = selectEntities;
 export const getSelected = (state: State) => state.selected;
+export const getEditedTaskId = (state: State) => state.editedTaskId;

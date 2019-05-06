@@ -15,12 +15,8 @@ import { Update } from '@ngrx/entity';
 })
 export class TaskItemComponent  {
     @Input() task: ITask;
-    @Output() select = new EventEmitter();
-    @ViewChild('input') inputEl: ElementRef;
 
-    selectedId$: Observable<any>;
-    isEditable = false;
-    newTaskDescription = '';
+    selectedId$: Observable<string>;
 
     constructor(private store: Store<fromRoot.State>) {
         this.selectedId$ = store.select(fromRoot.getSelected);
@@ -38,16 +34,8 @@ export class TaskItemComponent  {
         this.store.dispatch(new taskAction.ToggleTaskStatus(updateTask))
     }
 
-    doEditable() {
-        this.newTaskDescription = this.task.description;
-        this.isEditable = true;
-        setTimeout(() => {
-            this.inputEl.nativeElement.focus();
-        }, 0)
-    }
-
-    onBlur() {
-        this.isEditable = false;
+    edit() {
+        this.store.dispatch(new taskAction.StartEditing(this.task.id))
     }
 
     // onReturnPress(event) {
@@ -55,15 +43,5 @@ export class TaskItemComponent  {
     //     // this.task.description = this.newTaskDescription;
     //     // this.store.dispatch(new taskAction.EditDescription(this.task))
     // }
-
-    confirmDescription() {
-        this.isEditable = false;
-        const updateTask: Update<ITask> = {
-            id: this.task.id,
-            changes: {description: this.newTaskDescription}
-        };
-        this.store.dispatch(new taskAction.EditDescription(updateTask))
-    }
-
 
 }

@@ -5,6 +5,7 @@ import { ITask } from '~/app/models/task';
 
 
 export const SELECT = '[Tasks] Select';
+export const START_EDITING = '[Tasks] Start editing';
 export const ADD_TASK = '[Tasks] Add Task';
 export const TOGGLE_TASK_STATUS = '[Tasks] Toggle Task';
 export const EDIT_DESCRIPTION = '[Tasks] Edit Task';
@@ -13,6 +14,13 @@ export const DELETE_DONE_TASKS = '[Tasks] Delete Done Task';
 
 export class Select implements Action {
     readonly type = SELECT;
+
+    constructor(public payload: string) {
+    }
+}
+
+export class StartEditing implements Action {
+    readonly type = START_EDITING;
 
     constructor(public payload: string) {
     }
@@ -50,4 +58,5 @@ export type Action = AddTask
     | Select
     | ToggleTaskStatus
     | EditDescription
-    | DeleteDoneTasks;
+    | DeleteDoneTasks
+    | StartEditing;
