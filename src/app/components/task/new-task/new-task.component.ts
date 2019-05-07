@@ -19,7 +19,7 @@ export class NewTaskComponent implements OnDestroy {
     description = '';
     editedTaskSub;
     editedTask: ITask;
-
+    isTextFieldActive = false;
     constructor(private store: Store<fromRoot.State>) {
         this.editedTaskSub = store.select(fromRoot.getEditedTask)
             .subscribe(editedTask => {
@@ -34,6 +34,17 @@ export class NewTaskComponent implements OnDestroy {
             });
     }
 
+    onFocus(args) {
+        this.isTextFieldActive = true;
+        const textField = args.object;
+        textField.android.setImeOptions(android.view.inputmethod.EditorInfo.IME_ACTION_DONE |
+            android.view.inputmethod.EditorInfo.IME_FLAG_NO_EXTRACT_UI );
+    }
+
+    onBlur() {
+        this.isTextFieldActive = false;
+    }
+
     confirm(event) {
         if (this.description) {
             // edit an existing task
@@ -44,17 +55,17 @@ export class NewTaskComponent implements OnDestroy {
                 };
                 this.store.dispatch(new taskAction.EditDescription(updateTask));
                 this.editedTask = null;
-                setTimeout(() => {
-                    this.inputEl.nativeElement.dismissSoftInput();
-                    // this.inputEl.nativeElement.clearFocus();
-                    event.object.page.getViewById('input').nativeView.clearFocus()
-                }, 0)
             } else {
                 // create a new task
                 const newTask: ITask = new Task(this.description);
                 this.store.dispatch(new taskAction.AddTask(newTask));
             }
             this.description = '';
+            setTimeout(() => {
+                this.inputEl.nativeElement.dismissSoftInput();
+                // this.inputEl.nativeElement.clearFocus();
+                event.object.page.getViewById('input').nativeView.clearFocus()
+            }, 0)
         }
     }
 
