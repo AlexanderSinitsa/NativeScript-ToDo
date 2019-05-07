@@ -44,17 +44,17 @@ export class NewTaskComponent implements OnDestroy {
                 };
                 this.store.dispatch(new taskAction.EditDescription(updateTask));
                 this.editedTask = null;
+                setTimeout(() => {
+                    this.inputEl.nativeElement.dismissSoftInput();
+                    // this.inputEl.nativeElement.clearFocus();
+                    event.object.page.getViewById('input').nativeView.clearFocus()
+                }, 0)
             } else {
                 // create a new task
                 const newTask: ITask = new Task(this.description);
                 this.store.dispatch(new taskAction.AddTask(newTask));
             }
             this.description = '';
-            setTimeout(() => {
-                this.inputEl.nativeElement.dismissSoftInput();
-                // this.inputEl.nativeElement.clearFocus();
-                event.object.page.getViewById('input').nativeView.clearFocus()
-            }, 0)
         }
     }
 

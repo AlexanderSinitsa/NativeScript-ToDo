@@ -21,15 +21,11 @@
             <label text="ToDo" class="drawer-heading"></label>
         </StackLayout>
         <StackLayout row="1" margin="10 0 10 0" padding="10 0">
-            <ns-new-task></ns-new-task>
             <ns-task-list [tasks$]="tasks$"></ns-task-list>
         </StackLayout>
-        <Button row="2"
-                text="Done tasks"
-                [nsRouterLink]="['./done-tasks']"
-                pageTransition="slide"
-                class="done-tasks-bt"
-        ></Button>
+        <StackLayout row="2">
+            <ns-new-task></ns-new-task>
+        </StackLayout>
     </GridLayout>
     <!--    End Main content-->
 </RadSideDrawer>
