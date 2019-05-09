@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Task } from '~/app/models/task';
 
@@ -11,16 +10,6 @@ import { Task } from '~/app/models/task';
     templateUrl: './task-list.component.html',
     styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent {
     @Input() tasks$: Observable<Task[]>;
-    @Input() showDoneTasks: boolean = false;
-
-    filteredTasks$: Observable<Task[]>;
-
-    ngOnInit() {
-        this.filteredTasks$ = this.tasks$.pipe(
-            map(tasks => tasks.filter(task => task.done === this.showDoneTasks))
-        )
-    }
-
 }

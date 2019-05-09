@@ -4,4 +4,4 @@
     <ActionItem (tap)="deleteDoneTasks()" text="Clear" android.position="popup"></ActionItem>
 </ActionBar>
 
-<ns-task-list [tasks$]="tasks$" [showDoneTasks]="true"></ns-task-list>
+<ns-task-list [tasks$]="doneTasks$"></ns-task-list>

@@ -1,4 +1,4 @@
-<ListView class="list-group" [items]="filteredTasks$ | async" style="height: 100%">
+<ListView class="list-group" [items]="tasks$ | async" style="height: 100%">
     <ng-template let-task="item">
         <ns-task-item [task]="task"></ns-task-item>
     </ng-template>

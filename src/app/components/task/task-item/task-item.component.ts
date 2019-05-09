@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ITask } from '~/app/models/task';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as fromRoot from '~/app/store/reducers';
 import * as taskAction from '~/app/store/actions/tasks';
 import { Observable } from 'rxjs';
@@ -13,13 +13,13 @@ import { Update } from '@ngrx/entity';
     templateUrl: './task-item.component.html',
     styleUrls: ['./task-item.component.css']
 })
-export class TaskItemComponent  {
+export class TaskItemComponent {
     @Input() task: ITask;
 
     selectedId$: Observable<string>;
 
     constructor(private store: Store<fromRoot.State>) {
-        this.selectedId$ = store.select(fromRoot.getSelected);
+        this.selectedId$ = store.pipe(select(fromRoot.getSelected));
     }
 
     selectTask() {

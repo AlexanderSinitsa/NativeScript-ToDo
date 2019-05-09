@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as appSettings from "tns-core-modules/application-settings";
 import { Observable } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import * as taskAction from '~/app/store/actions/tasks';
@@ -39,6 +39,17 @@ export class TaskEffects {
             })
             )
         ),
+    );
+
+    @Effect()
+    public endEditing$: Observable<any> = this.actions$.pipe(
+        ofType(
+            taskAction.EDIT_DESCRIPTION
+        ),
+        map(() => {
+            return new taskAction.FinishEditing();
+        })
+
     );
 
 }

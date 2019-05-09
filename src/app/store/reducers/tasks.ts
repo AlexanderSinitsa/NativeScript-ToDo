@@ -52,19 +52,11 @@ export function reducer(state = getInitialState(), action: taskAction.Action) {
         }
 
         case taskAction.EDIT_DESCRIPTION: {
-            const id = action.payload.id;
-            return {
-                ...state,
-                editedTaskId: null,
-                entities: {
-                    ...state.entities,
-                    [id]: {
-                        ...state.entities[id],
-                        ...action.payload.changes
-                    }
-                }
-            }
-            // return adapter.updateOne(action.payload, state)
+            return adapter.updateOne(action.payload, state)
+        }
+
+        case taskAction.FINISH_EDITING: {
+            return {...state, editedTaskId: null};
         }
 
 

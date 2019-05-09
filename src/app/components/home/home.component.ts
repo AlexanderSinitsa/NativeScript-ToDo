@@ -5,6 +5,7 @@ import { Page } from 'tns-core-modules/ui/page';
 
 import * as fromRoot from '~/app/store/reducers';
 import { Task } from '~/app/models/task';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -14,9 +15,10 @@ import { Task } from '~/app/models/task';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    tasks$: Observable<Task[]>;
     @ViewChild("rsd") rSideDrawer: ElementRef;
 
+    tasks$: Observable<Task[]>;
+    activeTasks$: Observable<Task[]>;
     pages: { index: number, name: string, url: string }[] = [
         {index: 0, name: "Home", url: '/home'},
         {index: 1, name: "Done tasks", url: '/home/done-tasks'},
@@ -25,6 +27,9 @@ export class HomeComponent implements OnInit {
 
     constructor(private store: Store<fromRoot.State>, private page: Page) {
         this.tasks$ = store.pipe(select(fromRoot.getAllTasks));
+        this.activeTasks$ = this.tasks$.pipe(
+            map(tasks => tasks.filter(task => task.done !== true))
+        )
     }
 
     ngOnInit(): void {
@@ -35,7 +40,7 @@ export class HomeComponent implements OnInit {
         this.rSideDrawer.nativeElement.toggleDrawerState();
     }
 
-    goToPage(): void {
+    onCloseDrawerTap(): void {
         this.rSideDrawer.nativeElement.toggleDrawerState();
     }
 

@@ -5,7 +5,7 @@
             <StackLayout height="56" class="drawer-container">
                 <Label text="Categories" class="drawer-heading"></Label>
             </StackLayout>
-            <ListView [items]="pages" (itemTap)="goToPage()" height="100%">
+            <ListView [items]="pages" (itemTap)="onCloseDrawerTap()" height="100%">
                 <ng-template let-page="item">
                     <Button [text]="page.name" [nsRouterLink]="[page.url]" pageTransition="slide"
                             class="drawer-item"></Button>
@@ -21,7 +21,7 @@
             <label text="ToDo" class="drawer-heading"></label>
         </StackLayout>
         <StackLayout row="1" margin="10 0 10 0" padding="10 0">
-            <ns-task-list [tasks$]="tasks$"></ns-task-list>
+            <ns-task-list [tasks$]="activeTasks$"></ns-task-list>
         </StackLayout>
         <StackLayout row="2">
             <ns-new-task></ns-new-task>

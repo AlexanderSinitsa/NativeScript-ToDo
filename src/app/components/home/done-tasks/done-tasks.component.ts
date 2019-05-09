@@ -6,7 +6,8 @@ import { select, Store } from '@ngrx/store';
 
 import * as taskAction from '~/app/store/actions/tasks';
 import * as fromRoot from '~/app/store/reducers';
-import { Task } from '~/app/models/task';
+import { ITask, Task } from '~/app/models/task';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'ns-done-tasks',
@@ -16,12 +17,16 @@ import { Task } from '~/app/models/task';
 })
 export class DoneTasksComponent implements OnInit {
     tasks$: Observable<Task[]>;
+    doneTasks$: Observable<Task[]>;
 
     constructor(
         private routerExtensions: RouterExtensions,
         private store: Store<fromRoot.State>,
     ) {
         this.tasks$ = store.pipe(select(fromRoot.getAllTasks));
+        this.doneTasks$ = this.tasks$.pipe(
+            map(tasks => tasks.filter(task => task.done === true))
+        )
     }
 
     ngOnInit(): void {

@@ -9,6 +9,7 @@ export const START_EDITING = '[Tasks] Start editing';
 export const ADD_TASK = '[Tasks] Add Task';
 export const TOGGLE_TASK_STATUS = '[Tasks] Toggle Task';
 export const EDIT_DESCRIPTION = '[Tasks] Edit Task';
+export const FINISH_EDITING = '[Tasks] Finish editing';
 export const DELETE_DONE_TASKS = '[Tasks] Delete Done Task';
 
 
@@ -54,9 +55,14 @@ export class EditDescription implements Action {
     }
 }
 
+export class FinishEditing implements Action {
+    readonly type = FINISH_EDITING;
+}
+
 export type Action = AddTask
     | Select
     | ToggleTaskStatus
     | EditDescription
     | DeleteDoneTasks
-    | StartEditing;
+    | StartEditing
+    | FinishEditing;
